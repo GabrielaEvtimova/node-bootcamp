@@ -3,7 +3,6 @@ const http = require("http");
 const url = require("url");
 const replaceTemplate = require("./modules/replaceTemplate");
 
-
 //////////////////////////////////////////////////
 // FILES
 
@@ -42,8 +41,6 @@ const replaceTemplate = require("./modules/replaceTemplate");
 
 // Read the data only once before executing the server
 
-
-
 const tempOverview = fs.readFileSync(
   `${__dirname}/templates/template-overview.html`,
   "utf-8"
@@ -56,6 +53,11 @@ const tempProduct = fs.readFileSync(
   `${__dirname}/templates/template-product.html`,
   "utf-8"
 );
+const notFound = fs.readFileSync(
+  `${__dirname}/templates/not-found.html`,
+  "utf-8"
+);
+
 const data = fs.readFileSync(`${__dirname}/dev-data/data.json`, "utf-8");
 const dataObject = JSON.parse(data);
 
@@ -77,10 +79,9 @@ const server = http.createServer((req, res) => {
 
     // Product page
   } else if (pathname === "/product") {
-
     res.writeHead(200, {
-      "Content-type": "text/html"
-    })
+      "Content-type": "text/html",
+    });
     // If IDs were not the same as the position of the array, we will use filter
     // const product = dataObject.filter((el) => {
     //   if (el.id === +query.id) {
@@ -106,7 +107,7 @@ const server = http.createServer((req, res) => {
       "Content-type": "text/html",
       "my-own-header": "hello-world",
     });
-    res.end("<h1>Page not found!</h1>");
+    res.end(notFound);
   }
 });
 
