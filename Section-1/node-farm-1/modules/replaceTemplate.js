@@ -9,7 +9,7 @@ module.exports = (temp, product) => {
   output = output.replace(/{%DESCRIPTION%}/g, product.description);
 
   if (!product.organic)
-    output = output.replace(/{%NOT_ORGANIC%}/, "not-organic");
+    output = output.replace(/{%NOT_ORGANIC%}/, 'not-organic');
 
   return output;
 };
